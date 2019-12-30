@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: MyString
+  location: MyString
+  has_happened: false
+  league: one
+
+two:
+  date: MyString
+  location: MyString
+  has_happened: false
+  league: two

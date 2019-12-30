@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lateral_movement: 1
+  hockey_stop: 1
+  plow_stop: 1
+  turning_toe: 1
+  power_slide: 1
+  transitions: 1
+  backwards_skating: 1
+  speed_endurance: 1
+  recovery: 1
+  pack_work: 1
+  strategy_adaptability: 1
+  awareness_communication: 1
+  mental_recovery: 1
+  skater: one
+
+two:
+  lateral_movement: 1
+  hockey_stop: 1
+  plow_stop: 1
+  turning_toe: 1
+  power_slide: 1
+  transitions: 1
+  backwards_skating: 1
+  speed_endurance: 1
+  recovery: 1
+  pack_work: 1
+  strategy_adaptability: 1
+  awareness_communication: 1
+  mental_recovery: 1
+  skater: two

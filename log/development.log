@@ -1,0 +1,763 @@
+  [1m[35m (11.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_try_advisory_lock(1369637351297692260)[0m
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateTeams (20191230193237)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (7.8ms)[0m  [1m[35mCREATE TABLE "teams" ("id" bigserial primary key, "name" character varying, "invite_code" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20191230193237"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUsers (20191230193244)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (8.5ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "password_digest" character varying, "team_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_b2bbf87303"
+FOREIGN KEY ("team_id")
+  REFERENCES "teams" ("id")
+)[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_team_id" ON "users"  ("team_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20191230193244"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateSkaters (20191230193300)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.3ms)[0m  [1m[35mCREATE TABLE "skaters" ("id" bigserial primary key, "name" character varying, "accepted" boolean DEFAULT 'f', "veteran" boolean DEFAULT 'f', "team_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_9b50f4d017"
+FOREIGN KEY ("team_id")
+  REFERENCES "teams" ("id")
+)[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE  INDEX  "index_skaters_on_team_id" ON "skaters"  ("team_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20191230193300"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateSkills (20191230193308)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "skills" ("id" bigserial primary key, "lateral_movement" integer DEFAULT 1, "hockey_stop" integer DEFAULT 1, "plow_stop" integer DEFAULT 1, "turning_toe" integer DEFAULT 1, "power_slide" integer DEFAULT 1, "transitions" integer DEFAULT 1, "backwards_skating" integer DEFAULT 1, "speed_endurance" integer DEFAULT 1, "recovery" integer DEFAULT 1, "pack_work" integer DEFAULT 1, "strategy_adaptability" integer DEFAULT 1, "awareness_communication" integer DEFAULT 1, "mental_recovery" integer DEFAULT 1, "skater_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_6dc71daffa"
+FOREIGN KEY ("skater_id")
+  REFERENCES "skaters" ("id")
+)[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE  INDEX  "index_skills_on_skater_id" ON "skills"  ("skater_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20191230193308"]]
+  [1m[35m (1.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePractices (20191230193314)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.6ms)[0m  [1m[35mCREATE TABLE "practices" ("id" bigserial primary key, "date" character varying, "location" character varying, "has_happened" boolean, "team_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_1054526257"
+FOREIGN KEY ("team_id")
+  REFERENCES "teams" ("id")
+)[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE  INDEX  "index_practices_on_team_id" ON "practices"  ("team_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20191230193314"]]
+  [1m[35m (1.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAttendances (20191230193319)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE TABLE "attendances" ("id" bigserial primary key, "practice_id" bigint, "skater_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_18d86cd98e"
+FOREIGN KEY ("practice_id")
+  REFERENCES "practices" ("id")
+, CONSTRAINT "fk_rails_4f83ca347e"
+FOREIGN KEY ("skater_id")
+  REFERENCES "skaters" ("id")
+)[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE  INDEX  "index_attendances_on_practice_id" ON "attendances"  ("practice_id")[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE  INDEX  "index_attendances_on_skater_id" ON "attendances"  ("skater_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20191230193319"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.6ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2019-12-30 19:46:16.653275"], ["updated_at", "2019-12-30 19:46:16.653275"]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(1369637351297692260)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (3.4ms)[0m  [1m[32mINSERT INTO "teams" ("name", "invite_code", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "test roller derby"], ["invite_code", "test"], ["created_at", "2019-12-30 20:03:22.995581"], ["updated_at", "2019-12-30 20:03:22.995581"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/" for ::1 at 2019-12-30 15:04:49 -0500
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/sambernal/.rvm/gems/ruby-2.5.1/gems/railties-5.1.7/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/sambernal/.rvm/gems/ruby-2.5.1/gems/railties-5.1.7/lib/rails/templates/rails/welcome/index.html.erb (4.4ms)
+Completed 200 OK in 14ms (Views: 11.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/apple-touch-icon-precomposed.png" for ::1 at 2019-12-30 15:04:49 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/apple-touch-icon-precomposed.png"):
+  
+actionpack (5.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.7) lib/rails/engine.rb:522:in `call'
+puma (3.12.2) lib/puma/configuration.rb:227:in `call'
+puma (3.12.2) lib/puma/server.rb:674:in `handle_request'
+puma (3.12.2) lib/puma/server.rb:476:in `process_client'
+puma (3.12.2) lib/puma/server.rb:334:in `block in run'
+puma (3.12.2) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started GET "/favicon.ico" for ::1 at 2019-12-30 15:04:49 -0500
+Started GET "/apple-touch-icon.png" for ::1 at 2019-12-30 15:04:49 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/apple-touch-icon.png"):
+actionpack (5.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.7) lib/rails/engine.rb:522:in `call'
+puma (3.12.2) lib/puma/configuration.rb:227:in `call'
+puma (3.12.2) lib/puma/server.rb:674:in `handle_request'
+puma (3.12.2) lib/puma/server.rb:476:in `process_client'
+puma (3.12.2) lib/puma/server.rb:334:in `block in run'
+puma (3.12.2) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+  
+actionpack (5.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.7) lib/rails/engine.rb:522:in `call'
+puma (3.12.2) lib/puma/configuration.rb:227:in `call'
+puma (3.12.2) lib/puma/server.rb:674:in `handle_request'
+puma (3.12.2) lib/puma/server.rb:476:in `process_client'
+puma (3.12.2) lib/puma/server.rb:334:in `block in run'
+puma (3.12.2) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started GET "/api/v1/teams" for ::1 at 2019-12-30 15:05:21 -0500
+Processing by Api::V1::TeamsController#index as */*
+  [1m[36mTeam Load (0.6ms)[0m  [1m[34mSELECT "teams".* FROM "teams"[0m
+Completed 200 OK in 32ms (Views: 8.2ms | ActiveRecord: 6.2ms)
+
+
+Started GET "/api/v1/teams.json" for ::1 at 2019-12-30 15:06:10 -0500
+Processing by Api::V1::TeamsController#index as JSON
+  [1m[36mTeam Load (0.5ms)[0m  [1m[34mSELECT "teams".* FROM "teams"[0m
+Completed 200 OK in 3ms (Views: 2.3ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/user" for ::1 at 2019-12-30 15:10:09 -0500
+  
+ActionController::RoutingError (No route matches [POST] "/api/v1/user"):
+  
+actionpack (5.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.7) lib/rails/engine.rb:522:in `call'
+puma (3.12.2) lib/puma/configuration.rb:227:in `call'
+puma (3.12.2) lib/puma/server.rb:674:in `handle_request'
+puma (3.12.2) lib/puma/server.rb:476:in `process_client'
+puma (3.12.2) lib/puma/server.rb:334:in `block in run'
+puma (3.12.2) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started POST "/api/v1/users" for ::1 at 2019-12-30 15:10:17 -0500
+Processing by Api::V1::UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"test", "password"=>"[FILTERED]", "team_id"=>1}}
+Unpermitted parameter: :password
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.7ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (1.7ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 102ms (Views: 0.2ms | ActiveRecord: 13.1ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2019-12-30 15:10:50 -0500
+Processing by Api::V1::UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"test", "password"=>"[FILTERED]", "team_id"=>1}}
+Unpermitted parameter: :password
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (1.2ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (9.4ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 28ms (Views: 0.4ms | ActiveRecord: 11.1ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2019-12-30 15:11:09 -0500
+Processing by Api::V1::UsersController#create as */*
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]", "team_id"=>1, "user"=>{"username"=>"test", "team_id"=>1}}
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (1.3ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (3.4ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 18ms (Views: 0.3ms | ActiveRecord: 5.4ms)
+
+
+Started POST "/api/v1/users.json" for ::1 at 2019-12-30 15:12:08 -0500
+Processing by Api::V1::UsersController#create as JSON
+  Parameters: {"username"=>"test", "password"=>"[FILTERED]", "team_id"=>1, "user"=>{"username"=>"test", "team_id"=>1}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 5ms (Views: 0.3ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/api/v1/users.json" for ::1 at 2019-12-30 15:12:30 -0500
+Processing by Api::V1::UsersController#create as JSON
+Completed 400 Bad Request in 1ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: user):
+  
+app/controllers/api/v1/users_controller.rb:51:in `user_params'
+app/controllers/api/v1/users_controller.rb:20:in `create'
+Started POST "/api/v1/users.json" for ::1 at 2019-12-30 15:13:22 -0500
+Processing by Api::V1::UsersController#create as JSON
+  Parameters: {"user"=>{"username"=>"test", "password"=>"[FILTERED]", "team_id"=>1}}
+Unpermitted parameter: :password
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (1.1ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (2.1ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 10ms (Views: 0.3ms | ActiveRecord: 3.6ms)
+
+
+Started POST "/api/v1/users.json" for ::1 at 2019-12-30 15:13:39 -0500
+Processing by Api::V1::UsersController#create as JSON
+  Parameters: {"user"=>{"username"=>"test", "password"=>"[FILTERED]", "team_id"=>1}}
+Unpermitted parameter: :password
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (11.3ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (1.6ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 24ms (Views: 0.3ms | ActiveRecord: 13.6ms)
+
+
+Started POST "/api/v1/users.json" for ::1 at 2019-12-30 15:13:46 -0500
+Error occurred while parsing request parameters.
+Contents:
+
+{
+	user: { "username":"test", "password": "testing","team_id":1	}
+}
+  
+ActionDispatch::Http::Parameters::ParseError (767: unexpected token at '{
+	user: { "username":"test", "password": "testing","team_id":1	}
+}'):
+  
+actionpack (5.1.7) lib/action_dispatch/http/parameters.rb:115:in `rescue in parse_formatted_parameters'
+actionpack (5.1.7) lib/action_dispatch/http/parameters.rb:109:in `parse_formatted_parameters'
+actionpack (5.1.7) lib/action_dispatch/http/request.rb:361:in `block in POST'
+rack (2.0.8) lib/rack/request.rb:59:in `fetch'
+rack (2.0.8) lib/rack/request.rb:59:in `fetch_header'
+actionpack (5.1.7) lib/action_dispatch/http/request.rb:360:in `POST'
+actionpack (5.1.7) lib/action_controller/metal/params_wrapper.rb:286:in `_wrapper_enabled?'
+actionpack (5.1.7) lib/action_controller/metal/params_wrapper.rb:235:in `process_action'
+activerecord (5.1.7) lib/active_record/railties/controller_runtime.rb:22:in `process_action'
+actionpack (5.1.7) lib/abstract_controller/base.rb:124:in `process'
+actionpack (5.1.7) lib/action_controller/metal.rb:189:in `dispatch'
+actionpack (5.1.7) lib/action_controller/metal.rb:253:in `dispatch'
+actionpack (5.1.7) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (5.1.7) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (5.1.7) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.7) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.7) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.7) lib/action_dispatch/routing/route_set.rb:844:in `call'
+rack (2.0.8) lib/rack/etag.rb:25:in `call'
+rack (2.0.8) lib/rack/conditional_get.rb:38:in `call'
+rack (2.0.8) lib/rack/head.rb:12:in `call'
+activerecord (5.1.7) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.7) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.7) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.7) lib/rails/engine.rb:522:in `call'
+puma (3.12.2) lib/puma/configuration.rb:227:in `call'
+puma (3.12.2) lib/puma/server.rb:674:in `handle_request'
+puma (3.12.2) lib/puma/server.rb:476:in `process_client'
+puma (3.12.2) lib/puma/server.rb:334:in `block in run'
+puma (3.12.2) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started POST "/api/v1/users.json" for ::1 at 2019-12-30 15:14:31 -0500
+Processing by Api::V1::UsersController#create as JSON
+  Parameters: {"user"=>{"username"=>"test", "password"=>"[FILTERED]", "team_id"=>1}}
+Unpermitted parameter: :password
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.6ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (1.2ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 8ms (Views: 0.3ms | ActiveRecord: 2.0ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2019-12-30 15:14:35 -0500
+Processing by Api::V1::UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"test", "password"=>"[FILTERED]", "team_id"=>1}}
+Unpermitted parameter: :password
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 7ms (Views: 0.4ms | ActiveRecord: 0.9ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2019-12-30 15:14:57 -0500
+Processing by Api::V1::UsersController#create as */*
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: user):
+  
+app/controllers/api/v1/users_controller.rb:51:in `user_params'
+app/controllers/api/v1/users_controller.rb:20:in `create'
+Started POST "/api/v1/users" for ::1 at 2019-12-30 15:15:11 -0500
+Processing by Api::V1::UsersController#create as */*
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: user):
+  
+app/controllers/api/v1/users_controller.rb:51:in `user_params'
+app/controllers/api/v1/users_controller.rb:20:in `create'
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" ORDER BY "teams"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."team_id" = $1 LIMIT $2[0m  [["team_id", 1], ["LIMIT", 11]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."team_id" = $1 LIMIT $2[0m  [["team_id", 1], ["LIMIT", 11]]
+  [1m[36mTeam Load (0.4ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" ORDER BY "teams"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mTeam Load (0.5ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" ORDER BY "teams"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mTeam Load (0.4ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" ORDER BY "teams"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mTeam Load (0.5ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" ORDER BY "teams"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."team_id" = $1 LIMIT $2[0m  [["team_id", 1], ["LIMIT", 11]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (3.4ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "test"], ["password_digest", "$2a$12$7c5EwlZ0nBpjKb.zR5V0JOkUNTghnceyK8sv4iWpncvhb7rwD9QQq"], ["team_id", 1], ["created_at", "2019-12-30 20:20:31.382947"], ["updated_at", "2019-12-30 20:20:31.382947"]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."team_id" = $1 LIMIT $2[0m  [["team_id", 1], ["LIMIT", 11]]
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."team_id" = $1 AND "users"."username" = $2 LIMIT $3[0m  [["team_id", 1], ["username", "test"], ["LIMIT", 1]]
+  [1m[36mSkater Load (1.9ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."team_id" = $1 LIMIT $2[0m  [["team_id", 1], ["LIMIT", 11]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "test skater"], ["team_id", 1], ["created_at", "2019-12-30 20:26:15.353254"], ["updated_at", "2019-12-30 20:26:15.353254"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mSkater Load (0.8ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."team_id" = $1 LIMIT $2[0m  [["team_id", 1], ["LIMIT", 11]]
+  [1m[36mSkater Load (0.3ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."team_id" = $1 AND "skaters"."id" = $2 LIMIT $3[0m  [["team_id", 1], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" ORDER BY "teams"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mSkater Load (0.2ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."team_id" = $1 LIMIT $2[0m  [["team_id", 1], ["LIMIT", 11]]
+  [1m[36mSkater Load (0.5ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."team_id" = $1 AND "skaters"."id" = $2 LIMIT $3[0m  [["team_id", 1], ["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSkater Load (0.2ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (2.5ms)[0m  [1m[32mINSERT INTO "skills" ("skater_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["skater_id", 1], ["created_at", "2019-12-30 20:33:13.850596"], ["updated_at", "2019-12-30 20:33:13.850596"]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mSkill Load (0.4ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" ORDER BY "skills"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mSkater Load (0.6ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" ORDER BY "teams"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."team_id" = $1 LIMIT $2[0m  [["team_id", 1], ["LIMIT", 11]]
+  [1m[36mTeam Load (0.5ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."team_id" = $1 AND "users"."username" = $2 LIMIT $3[0m  [["team_id", 1], ["username", "test"], ["LIMIT", 1]]
+Started POST "/api/v1/users" for ::1 at 2019-12-30 15:47:57 -0500
+Processing by Api::V1::UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"test2", "password"=>"[FILTERED]", "team_id"=>1}}
+Unpermitted parameter: :password
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 34ms (Views: 0.2ms | ActiveRecord: 8.4ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2019-12-30 15:48:08 -0500
+Processing by Api::V1::UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"test2", "password"=>"[FILTERED]", "team_id"=>1}}
+Unpermitted parameter: :password
+  [1m[35m (1.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (2.7ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (3.7ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 18ms (Views: 0.3ms | ActiveRecord: 7.6ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2019-12-30 15:48:22 -0500
+Processing by Api::V1::UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"test2", "password"=>"[FILTERED]", "team_id"=>1}}
+Unpermitted parameter: :password
+  [1m[35m (1.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (2.2ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (1.7ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 15ms (Views: 0.2ms | ActiveRecord: 5.3ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2019-12-30 15:50:27 -0500
+  
+ArgumentError (You need to supply at least one validation):
+  
+app/models/user.rb:6:in `<class:User>'
+app/models/user.rb:1:in `<top (required)>'
+Started POST "/api/v1/users" for ::1 at 2019-12-30 15:50:48 -0500
+Processing by Api::V1::UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"test2", "password"=>"[FILTERED]", "team_id"=>1}}
+Unpermitted parameter: :password
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+Completed 422 Unprocessable Entity in 48ms (Views: 0.2ms | ActiveRecord: 6.1ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2019-12-30 15:52:13 -0500
+Processing by Api::V1::UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"test2", "password"=>"[FILTERED]", "team_id"=>1}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (2.1ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "test2"], ["password_digest", "$2a$12$e8sSuEz7PZhOooYISv1IPOPlk/0i5gEnpfPKtcxXd8fythgRH.tgS"], ["team_id", 1], ["created_at", "2019-12-30 20:52:13.663779"], ["updated_at", "2019-12-30 20:52:13.663779"]]
+  [1m[35m (1.8ms)[0m  [1m[35mCOMMIT[0m
+Completed 500 Internal Server Error in 368ms (ActiveRecord: 11.7ms)
+
+
+  
+NoMethodError (undefined method `user_url' for #<Api::V1::UsersController:0x00007fbd399ba570>):
+  
+app/controllers/api/v1/users_controller.rb:23:in `create'
+Started POST "/api/v1/users" for ::1 at 2019-12-30 15:53:38 -0500
+Processing by Api::V1::UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"test2", "password"=>"[FILTERED]", "team_id"=>1}}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "test2"], ["password_digest", "$2a$12$lRquQS8RgS7olsonhXZWieSrAkvgw18Eqj7sTAJbWwiKLJlTVWIZW"], ["team_id", 1], ["created_at", "2019-12-30 20:53:38.312869"], ["updated_at", "2019-12-30 20:53:38.312869"]]
+  [1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+Completed 500 Internal Server Error in 344ms (ActiveRecord: 2.6ms)
+
+
+  
+NoMethodError (undefined method `user_url' for #<Api::V1::UsersController:0x00007fbd3d0f8870>):
+  
+app/controllers/api/v1/users_controller.rb:23:in `create'
+Started DELETE "/api/v1/users/3" for ::1 at 2019-12-30 15:55:19 -0500
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::UsersController#destroy as */*
+  Parameters: {"user"=>{"username"=>"test2", "password"=>"[FILTERED]", "team_id"=>1}, "id"=>"3"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.1ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = $1[0m  [["id", 3]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 35ms (ActiveRecord: 9.7ms)
+
+
+Started POST "/api/v1/users" for ::1 at 2019-12-30 15:55:40 -0500
+Processing by Api::V1::UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"test3", "password"=>"[FILTERED]", "team_id"=>1}}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.6ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (1.4ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "test3"], ["password_digest", "$2a$12$W7boXJReDlQ0huuWOolebe1q53rGi9ZuAbzxX2cfdQK7gMdZpI8CC"], ["team_id", 1], ["created_at", "2019-12-30 20:55:41.045475"], ["updated_at", "2019-12-30 20:55:41.045475"]]
+  [1m[35m (1.5ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 403ms (Views: 0.5ms | ActiveRecord: 24.1ms)
+
+
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "another skater"], ["team_id", 1], ["created_at", "2019-12-30 20:57:00.370466"], ["updated_at", "2019-12-30 20:57:00.370466"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSkater Load (0.3ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "skills" ("skater_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["skater_id", 1], ["created_at", "2019-12-30 20:59:30.458520"], ["updated_at", "2019-12-30 20:59:30.458520"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mSkill Load (0.5ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mSkill Load (0.6ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mSkill Load (0.5ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.6ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mSkater Load (0.5ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSkater Load (0.4ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.5ms)[0m  [1m[34mSELECT "skills".* FROM "skills" WHERE "skills"."skater_id" = 1[0m
+Started GET "/api/v1/skaters/1" for ::1 at 2019-12-30 16:08:22 -0500
+Processing by Api::V1::SkatersController#show as */*
+  Parameters: {"user"=>{"username"=>"test3", "password"=>"[FILTERED]", "team_id"=>1}, "id"=>"1", "skater"=>{}}
+  [1m[36mSkater Load (1.2ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 17ms (ActiveRecord: 6.6ms)
+
+
+  
+ActiveRecord::AssociationNotFoundError (Association named 'skills' was not found on Skater; perhaps you misspelled it?):
+  
+app/controllers/api/v1/skaters_controller.rb:45:in `set_skater'
+Started GET "/api/v1/skaters/1" for ::1 at 2019-12-30 16:08:33 -0500
+Processing by Api::V1::SkatersController#show as */*
+  Parameters: {"user"=>{"username"=>"test3", "password"=>"[FILTERED]", "team_id"=>1}, "id"=>"1", "skater"=>{}}
+  [1m[36mSkater Load (1.9ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 1.9ms)
+
+
+  
+ActiveRecord::AssociationNotFoundError (Association named 'skills' was not found on Skater; perhaps you misspelled it?):
+  
+app/controllers/api/v1/skaters_controller.rb:45:in `set_skater'
+Started GET "/api/v1/skaters/1" for ::1 at 2019-12-30 16:08:43 -0500
+Processing by Api::V1::SkatersController#show as */*
+  Parameters: {"user"=>{"username"=>"test3", "password"=>"[FILTERED]", "team_id"=>1}, "id"=>"1", "skater"=>{}}
+  [1m[36mSkater Load (0.3ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.9ms)[0m  [1m[34mSELECT "skills".* FROM "skills" WHERE "skills"."skater_id" = 1[0m
+Completed 500 Internal Server Error in 71ms (ActiveRecord: 7.8ms)
+
+
+  
+ActiveRecord::AssociationNotFoundError (Association named 'attendance' was not found on Skater; perhaps you misspelled it?):
+  
+app/controllers/api/v1/skaters_controller.rb:45:in `set_skater'
+Started GET "/api/v1/skaters/1" for ::1 at 2019-12-30 16:09:00 -0500
+Processing by Api::V1::SkatersController#show as */*
+  Parameters: {"user"=>{"username"=>"test3", "password"=>"[FILTERED]", "team_id"=>1}, "id"=>"1", "skater"=>{}}
+  [1m[36mSkater Load (0.4ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.4ms)[0m  [1m[34mSELECT "skills".* FROM "skills" WHERE "skills"."skater_id" = 1[0m
+  [1m[36mAttendance Load (2.4ms)[0m  [1m[34mSELECT "attendances".* FROM "attendances" WHERE "attendances"."skater_id" = 1[0m
+Completed 200 OK in 65ms (Views: 0.4ms | ActiveRecord: 5.7ms)
+
+
+Started GET "/api/v1/skaters/1" for ::1 at 2019-12-30 16:09:58 -0500
+Processing by Api::V1::SkatersController#show as */*
+  Parameters: {"user"=>{"username"=>"test3", "password"=>"[FILTERED]", "team_id"=>1}, "id"=>"1", "skater"=>{}}
+  [1m[36mSkater Load (0.4ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.4ms)[0m  [1m[34mSELECT "skills".* FROM "skills" WHERE "skills"."skater_id" = 1[0m
+  [1m[36mAttendance Load (0.4ms)[0m  [1m[34mSELECT "attendances".* FROM "attendances" WHERE "attendances"."skater_id" = 1[0m
+Completed 200 OK in 75ms (Views: 0.6ms | ActiveRecord: 1.1ms)
+
+
+  [1m[36mSkill Load (0.4ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" LIMIT $1[0m  [["LIMIT", 11]]
+Started GET "/api/v1/skaters" for ::1 at 2019-12-30 16:10:54 -0500
+Processing by Api::V1::SkatersController#index as */*
+  Parameters: {"user"=>{"username"=>"test3", "password"=>"[FILTERED]", "team_id"=>1}, "skater"=>{}}
+  [1m[36mSkater Load (0.4ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (0.8ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.7ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+Completed 200 OK in 10ms (Views: 0.4ms | ActiveRecord: 1.9ms)
+
+
+Started GET "/api/v1/skaters" for ::1 at 2019-12-30 16:11:49 -0500
+  
+SyntaxError (/Users/sambernal/Desktop/dev/ruby_learnin/RoR CodeAlongs/BTT_test/app/controllers/api/v1/skaters_controller.rb:9: syntax error, unexpected ')', expecting =>
+...on(include: :skill, :practices)
+...                              ^
+/Users/sambernal/Desktop/dev/ruby_learnin/RoR CodeAlongs/BTT_test/app/controllers/api/v1/skaters_controller.rb:54: syntax error, unexpected end-of-input, expecting end):
+  
+app/controllers/api/v1/skaters_controller.rb:9: syntax error, unexpected ')', expecting =>
+app/controllers/api/v1/skaters_controller.rb:54: syntax error, unexpected end-of-input, expecting end
+Started GET "/api/v1/skaters" for ::1 at 2019-12-30 16:12:49 -0500
+Processing by Api::V1::SkatersController#index as */*
+  Parameters: {"user"=>{"username"=>"test3", "password"=>"[FILTERED]", "team_id"=>1}, "skater"=>{}}
+  [1m[36mSkater Load (0.3ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (0.9ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (2.4ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.4ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+Completed 200 OK in 108ms (Views: 0.1ms | ActiveRecord: 15.9ms)
+
+
+Started GET "/api/v1/skaters/1" for ::1 at 2019-12-30 16:13:26 -0500
+Processing by Api::V1::SkatersController#show as */*
+  Parameters: {"user"=>{"username"=>"test3", "password"=>"[FILTERED]", "team_id"=>1}, "id"=>"1", "skater"=>{}}
+  [1m[36mSkater Load (0.4ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT "skills".* FROM "skills" WHERE "skills"."skater_id" = 1[0m
+  [1m[36mAttendance Load (0.8ms)[0m  [1m[34mSELECT "attendances".* FROM "attendances" WHERE "attendances"."skater_id" = 1[0m
+Completed 200 OK in 83ms (Views: 0.1ms | ActiveRecord: 1.5ms)
+
+
+  [1m[36mSkater Load (0.8ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.6ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "skills" ("skater_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["skater_id", 2], ["created_at", "2019-12-30 21:14:46.235285"], ["updated_at", "2019-12-30 21:14:46.235285"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/api/v1/skaters" for ::1 at 2019-12-30 16:15:05 -0500
+Processing by Api::V1::SkatersController#index as */*
+  Parameters: {"user"=>{"username"=>"test3", "password"=>"[FILTERED]", "team_id"=>1}, "skater"=>{}}
+  [1m[36mSkater Load (2.4ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (3.6ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (2.4ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (1.0ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (1.7ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+Completed 200 OK in 47ms (Views: 0.6ms | ActiveRecord: 23.5ms)
+
+
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "third skater"], ["team_id", 1], ["created_at", "2019-12-30 21:18:51.671487"], ["updated_at", "2019-12-30 21:18:51.671487"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/skaters" for ::1 at 2019-12-30 16:19:58 -0500
+Processing by Api::V1::SkatersController#create as */*
+  Parameters: {"skater"=>{"name"=>"test test", "team_id"=>1}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.4ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "test test"], ["team_id", 1], ["created_at", "2019-12-30 21:19:58.214106"], ["updated_at", "2019-12-30 21:19:58.214106"]]
+  [1m[35m (6.7ms)[0m  [1m[35mCOMMIT[0m
+Completed 500 Internal Server Error in 126ms (ActiveRecord: 16.7ms)
+
+
+  
+NoMethodError (undefined method `skater_url' for #<Api::V1::SkatersController:0x00007fd83514ac70>):
+  
+app/controllers/api/v1/skaters_controller.rb:21:in `create'
+Started POST "/api/v1/skaters/4" for ::1 at 2019-12-30 16:21:55 -0500
+  
+ActionController::RoutingError (No route matches [POST] "/api/v1/skaters/4"):
+  
+actionpack (5.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.7) lib/rails/engine.rb:522:in `call'
+puma (3.12.2) lib/puma/configuration.rb:227:in `call'
+puma (3.12.2) lib/puma/server.rb:674:in `handle_request'
+puma (3.12.2) lib/puma/server.rb:476:in `process_client'
+puma (3.12.2) lib/puma/server.rb:334:in `block in run'
+puma (3.12.2) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started DELETE "/api/v1/skaters/4" for ::1 at 2019-12-30 16:22:06 -0500
+Processing by Api::V1::SkatersController#destroy as */*
+  Parameters: {"skater"=>{"name"=>"test test", "team_id"=>1}, "id"=>"4"}
+  [1m[36mSkater Load (0.5ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.8ms)[0m  [1m[34mSELECT "skills".* FROM "skills" WHERE "skills"."skater_id" = 4[0m
+  [1m[36mAttendance Load (0.6ms)[0m  [1m[34mSELECT "attendances".* FROM "attendances" WHERE "attendances"."skater_id" = 4[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.1ms)[0m  [1m[31mDELETE FROM "skaters" WHERE "skaters"."id" = $1[0m  [["id", 4]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 66ms (ActiveRecord: 11.6ms)
+
+
+Started GET "/api/v1/skaters" for ::1 at 2019-12-30 16:22:12 -0500
+Processing by Api::V1::SkatersController#index as */*
+  Parameters: {"skater"=>{"name"=>"test test", "team_id"=>1}}
+  [1m[36mSkater Load (3.5ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (0.9ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.4ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+  [1m[36mSkill Load (2.1ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 3], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.4ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 3]]
+Completed 200 OK in 62ms (Views: 1.1ms | ActiveRecord: 16.7ms)
+
+
+  [1m[36mSkill Load (0.6ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 3], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSkater Load (0.3ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "skills" ("skater_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["skater_id", 3], ["created_at", "2019-12-30 21:24:21.268487"], ["updated_at", "2019-12-30 21:24:21.268487"]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/api/v1/skaters" for ::1 at 2019-12-30 16:24:38 -0500
+Processing by Api::V1::SkatersController#index as */*
+  Parameters: {"skater"=>{"name"=>"test test", "team_id"=>1}}
+  [1m[36mSkater Load (3.8ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (0.5ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.7ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (0.5ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.6ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+  [1m[36mSkill Load (0.4ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 3], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.7ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 3]]
+Completed 200 OK in 31ms (Views: 0.3ms | ActiveRecord: 7.1ms)
+
+
+Started POST "/api/v1/skaters" for ::1 at 2019-12-30 16:26:34 -0500
+Processing by Api::V1::SkatersController#create as */*
+  Parameters: {"skater"=>{"name"=>"simon simon the third", "team_id"=>1}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (1.1ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "simon simon the third"], ["team_id", 1], ["created_at", "2019-12-30 21:26:34.542547"], ["updated_at", "2019-12-30 21:26:34.542547"]]
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSkater Load (0.3ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "skills" ("skater_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["skater_id", 5], ["created_at", "2019-12-30 21:26:34.579746"], ["updated_at", "2019-12-30 21:26:34.579746"]]
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+Completed 500 Internal Server Error in 147ms (ActiveRecord: 7.4ms)
+
+
+  
+NoMethodError (undefined method `skater_url' for #<Api::V1::SkatersController:0x00007fd834b6c290>):
+  
+app/controllers/api/v1/skaters_controller.rb:22:in `create'
+Started GET "/api/v1/skaters" for ::1 at 2019-12-30 16:26:51 -0500
+Processing by Api::V1::SkatersController#index as */*
+  Parameters: {"skater"=>{"name"=>"simon simon the third", "team_id"=>1}}
+  [1m[36mSkater Load (0.9ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (1.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.5ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (0.6ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (2.0ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+  [1m[36mSkill Load (2.1ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 3], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.5ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 3]]
+  [1m[36mSkill Load (0.8ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 5], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.5ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 5]]
+Completed 200 OK in 62ms (Views: 0.1ms | ActiveRecord: 19.4ms)
+
+
+Started POST "/api/v1/skaters" for ::1 at 2019-12-30 16:27:21 -0500
+Processing by Api::V1::SkatersController#create as */*
+  Parameters: {"skater"=>{"name"=>"simon simon the second", "team_id"=>1}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "simon simon the second"], ["team_id", 1], ["created_at", "2019-12-30 21:27:21.308602"], ["updated_at", "2019-12-30 21:27:21.308602"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSkater Load (0.3ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "skills" ("skater_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["skater_id", 6], ["created_at", "2019-12-30 21:27:21.374414"], ["updated_at", "2019-12-30 21:27:21.374414"]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 107ms (Views: 0.9ms | ActiveRecord: 20.0ms)
+
+
+Started POST "/api/v1/skaters" for ::1 at 2019-12-30 16:29:12 -0500
+Processing by Api::V1::SkatersController#create as */*
+  Parameters: {"skater"=>{"name"=>"brazilian whacks", "team_id"=>1}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.5ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "brazilian whacks"], ["team_id", 1], ["created_at", "2019-12-30 21:29:12.680651"], ["updated_at", "2019-12-30 21:29:12.680651"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSkater Load (0.3ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "skills" ("skater_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["skater_id", 7], ["created_at", "2019-12-30 21:29:12.742098"], ["updated_at", "2019-12-30 21:29:12.742098"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mSkill Load (1.0ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 7], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.4ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 7]]
+Completed 200 OK in 111ms (Views: 0.2ms | ActiveRecord: 10.9ms)
+
+
