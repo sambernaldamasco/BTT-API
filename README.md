@@ -1,24 +1,6 @@
-# README
+# BTT API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+API for the Beyond the Track 2.0 application created on Ruby on Rails.
 
+API Live in - https://btt-backend.herokuapp.com/api/v1
 Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
