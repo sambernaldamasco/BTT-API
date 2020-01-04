@@ -1274,3 +1274,616 @@ Processing by Api::V1::SkatersController#roster_list as */*
 Completed 200 OK in 54ms (Views: 0.3ms | ActiveRecord: 10.9ms)
 
 
+  [1m[36mSkater Load (2.6ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (12.0ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "veteran", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "fresh new skater"], ["veteran", "t"], ["team_id", 1], ["created_at", "2020-01-04 20:56:27.365768"], ["updated_at", "2020-01-04 20:56:27.365768"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/api/v1/skaters" for ::1 at 2020-01-04 15:57:02 -0500
+Processing by Api::V1::SkatersController#index as HTML
+  [1m[36mSkater Load (0.3ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 3], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 3]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 5], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 5]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 6], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 6]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 7], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 7]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 8], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 8]]
+Completed 200 OK in 75ms (Views: 0.2ms | ActiveRecord: 12.3ms)
+
+
+Started GET "/api/v1/skaters/8" for ::1 at 2020-01-04 15:58:09 -0500
+Processing by Api::V1::SkatersController#show as */*
+  Parameters: {"id"=>"8"}
+  [1m[36mSkater Load (0.4ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mSkill Load (2.3ms)[0m  [1m[34mSELECT "skills".* FROM "skills" WHERE "skills"."skater_id" = 8[0m
+  [1m[36mAttendance Load (0.9ms)[0m  [1m[34mSELECT "attendances".* FROM "attendances" WHERE "attendances"."skater_id" = 8[0m
+Completed 200 OK in 48ms (Views: 0.1ms | ActiveRecord: 3.6ms)
+
+
+Started DELETE "/api/v1/skaters/8" for ::1 at 2020-01-04 15:58:14 -0500
+Processing by Api::V1::SkatersController#destroy as */*
+  Parameters: {"id"=>"8"}
+  [1m[36mSkater Load (0.6ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.5ms)[0m  [1m[34mSELECT "skills".* FROM "skills" WHERE "skills"."skater_id" = 8[0m
+  [1m[36mAttendance Load (0.4ms)[0m  [1m[34mSELECT "attendances".* FROM "attendances" WHERE "attendances"."skater_id" = 8[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (3.0ms)[0m  [1m[31mDELETE FROM "skaters" WHERE "skaters"."id" = $1[0m  [["id", 8]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 15ms (ActiveRecord: 5.1ms)
+
+
+Started DELETE "/api/v1/skaters/" for ::1 at 2020-01-04 15:58:16 -0500
+  
+ActionController::RoutingError (No route matches [DELETE] "/api/v1/skaters"):
+  
+actionpack (5.1.7) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.7) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.7) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.7) lib/rails/rack/logger.rb:24:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.8) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.7) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.7) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.8) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.1.1) lib/rack/cors.rb:100:in `call'
+railties (5.1.7) lib/rails/engine.rb:522:in `call'
+puma (3.12.2) lib/puma/configuration.rb:227:in `call'
+puma (3.12.2) lib/puma/server.rb:674:in `handle_request'
+puma (3.12.2) lib/puma/server.rb:476:in `process_client'
+puma (3.12.2) lib/puma/server.rb:334:in `block in run'
+puma (3.12.2) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started GET "/api/v1/skaters" for ::1 at 2020-01-04 15:58:23 -0500
+Processing by Api::V1::SkatersController#index as */*
+  [1m[36mSkater Load (0.6ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (2.4ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.8ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (2.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (1.0ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+  [1m[36mSkill Load (1.0ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 3], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.5ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 3]]
+  [1m[36mSkill Load (0.5ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 5], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.5ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 5]]
+  [1m[36mSkill Load (7.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 6], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.8ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 6]]
+  [1m[36mSkill Load (1.9ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 7], ["LIMIT", 1]]
+  [1m[36mPractice Load (3.0ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 7]]
+Completed 200 OK in 66ms (Views: 0.7ms | ActiveRecord: 22.6ms)
+
+
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "veteran", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "fresh new skater"], ["veteran", "t"], ["team_id", 1], ["created_at", "2020-01-04 21:02:44.726008"], ["updated_at", "2020-01-04 21:02:44.726008"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/api/v1/skaters" for ::1 at 2020-01-04 16:02:52 -0500
+Processing by Api::V1::SkatersController#index as HTML
+  [1m[36mSkater Load (0.3ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (0.4ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.4ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+  [1m[36mSkill Load (2.1ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 3], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 3]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 5], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 5]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 6], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 6]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 7], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 7]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 9], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 9]]
+Completed 200 OK in 88ms (Views: 0.1ms | ActiveRecord: 17.1ms)
+
+
+Started DELETE "/api/v1/skaters/9" for ::1 at 2020-01-04 16:03:33 -0500
+Processing by Api::V1::SkatersController#destroy as */*
+  Parameters: {"id"=>"9"}
+  [1m[36mSkater Load (0.5ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.4ms)[0m  [1m[34mSELECT "skills".* FROM "skills" WHERE "skills"."skater_id" = 9[0m
+  [1m[36mAttendance Load (0.7ms)[0m  [1m[34mSELECT "attendances".* FROM "attendances" WHERE "attendances"."skater_id" = 9[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[31mDELETE FROM "skaters" WHERE "skaters"."id" = $1[0m  [["id", 9]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 12ms (ActiveRecord: 3.8ms)
+
+
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "veteran", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "fresh new skater"], ["veteran", "t"], ["team_id", 1], ["created_at", "2020-01-04 21:06:46.040208"], ["updated_at", "2020-01-04 21:06:46.040208"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/api/v1/skaters" for ::1 at 2020-01-04 16:06:50 -0500
+Processing by Api::V1::SkatersController#index as HTML
+  [1m[36mSkater Load (1.4ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.4ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 3], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 3]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 5], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 5]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 6], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 6]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 7], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 7]]
+  [1m[36mSkill Load (0.5ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 10], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 10]]
+Completed 200 OK in 112ms (Views: 0.2ms | ActiveRecord: 18.3ms)
+
+
+Started GET "/api/v1/skills" for ::1 at 2020-01-04 16:06:59 -0500
+Processing by Api::V1::SkillsController#index as HTML
+  [1m[36mSkill Load (0.4ms)[0m  [1m[34mSELECT "skills".* FROM "skills"[0m
+Completed 200 OK in 5ms (Views: 4.4ms | ActiveRecord: 0.4ms)
+
+
+Started DELETE "/api/v1/skaters/10" for ::1 at 2020-01-04 16:07:25 -0500
+Processing by Api::V1::SkatersController#destroy as */*
+  Parameters: {"id"=>"10"}
+  [1m[36mSkater Load (0.8ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 10], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.9ms)[0m  [1m[34mSELECT "skills".* FROM "skills" WHERE "skills"."skater_id" = 10[0m
+  [1m[36mAttendance Load (5.6ms)[0m  [1m[34mSELECT "attendances".* FROM "attendances" WHERE "attendances"."skater_id" = 10[0m
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "skaters" WHERE "skaters"."id" = $1[0m  [["id", 10]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 18ms (ActiveRecord: 8.8ms)
+
+
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.4ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "veteran", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "fresh new skater"], ["veteran", "t"], ["team_id", 1], ["created_at", "2020-01-04 21:08:01.660798"], ["updated_at", "2020-01-04 21:08:01.660798"]]
+  [1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/api/v1/skaters" for ::1 at 2020-01-04 16:08:03 -0500
+Processing by Api::V1::SkatersController#index as HTML
+  [1m[36mSkater Load (0.2ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 3], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 3]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 5], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.8ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 5]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 6], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 6]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 7], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 7]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 11], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 11]]
+Completed 200 OK in 76ms (Views: 0.1ms | ActiveRecord: 12.8ms)
+
+
+Started POST "/api/v1/skaters" for ::1 at 2020-01-04 16:09:09 -0500
+Processing by Api::V1::SkatersController#create as */*
+Completed 400 Bad Request in 1ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: skater):
+  
+app/controllers/api/v1/skaters_controller.rb:65:in `skater_params'
+app/controllers/api/v1/skaters_controller.rb:19:in `create'
+Started POST "/api/v1/skaters" for ::1 at 2020-01-04 16:10:28 -0500
+Processing by Api::V1::SkatersController#create as */*
+  Parameters: {"skater"=>{"name"=>"hot new skater", "team_id"=>1}}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.6ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "hot new skater"], ["team_id", 1], ["created_at", "2020-01-04 21:10:28.794763"], ["updated_at", "2020-01-04 21:10:28.794763"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSkater Load (0.2ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+  [1m[35mSQL (2.9ms)[0m  [1m[32mINSERT INTO "skills" ("skater_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["skater_id", 12], ["created_at", "2020-01-04 21:10:28.803226"], ["updated_at", "2020-01-04 21:10:28.803226"]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mSkill Load (2.1ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 12], ["LIMIT", 1]]
+  [1m[36mPractice Load (6.4ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 12]]
+Completed 200 OK in 62ms (Views: 0.1ms | ActiveRecord: 23.4ms)
+
+
+Started GET "/api/v1/skaters" for ::1 at 2020-01-04 16:10:41 -0500
+Processing by Api::V1::SkatersController#index as HTML
+  [1m[36mSkater Load (0.6ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (0.4ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 3], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 3]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 5], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 5]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 6], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 6]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 7], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 7]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 11], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 11]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 12], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 12]]
+Completed 200 OK in 28ms (Views: 0.1ms | ActiveRecord: 4.6ms)
+
+
+Started POST "/api/v1/skaters" for ::1 at 2020-01-04 16:11:12 -0500
+Processing by Api::V1::SkatersController#create as */*
+  Parameters: {"skater"=>{"name"=>"hot new skater", "team_id"=>1, "veteran"=>true}}
+Unpermitted parameter: :veteran
+  [1m[35m (4.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.8ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "hot new skater"], ["team_id", 1], ["created_at", "2020-01-04 21:11:13.001234"], ["updated_at", "2020-01-04 21:11:13.001234"]]
+  [1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSkater Load (0.6ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 13], ["LIMIT", 1]]
+  [1m[35mSQL (1.4ms)[0m  [1m[32mINSERT INTO "skills" ("skater_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["skater_id", 13], ["created_at", "2020-01-04 21:11:13.012002"], ["updated_at", "2020-01-04 21:11:13.012002"]]
+  [1m[35m (2.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mSkill Load (0.6ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 13], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.8ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 13]]
+Completed 200 OK in 38ms (Views: 0.2ms | ActiveRecord: 14.7ms)
+
+
+Started GET "/api/v1/skaters" for ::1 at 2020-01-04 16:11:15 -0500
+Processing by Api::V1::SkatersController#index as HTML
+  [1m[36mSkater Load (0.6ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 3], ["LIMIT", 1]]
+  [1m[36mPractice Load (13.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 3]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 5], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 5]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 6], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 6]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 7], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 7]]
+  [1m[36mSkill Load (0.8ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 11], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 11]]
+  [1m[36mSkill Load (0.9ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 12], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.7ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 12]]
+  [1m[36mSkill Load (1.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 13], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 13]]
+Completed 200 OK in 56ms (Views: 0.1ms | ActiveRecord: 20.8ms)
+
+
+  [1m[36mSkater Load (0.3ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 11], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "veteran", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "testestest2"], ["veteran", "t"], ["team_id", 1], ["created_at", "2020-01-04 21:34:48.557459"], ["updated_at", "2020-01-04 21:34:48.557459"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/api/v1/skaters" for ::1 at 2020-01-04 16:34:53 -0500
+Processing by Api::V1::SkatersController#index as HTML
+  [1m[36mSkater Load (0.7ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 3], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 3]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 5], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 5]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 6], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 6]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 7], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 7]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 11], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 11]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 12], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 12]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 13], ["LIMIT", 1]]
+  [1m[36mPractice Load (16.7ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 13]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 14], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 14]]
+Completed 200 OK in 123ms (Views: 0.2ms | ActiveRecord: 33.0ms)
+
+
+  [1m[36mSkill Load (0.7ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 14], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.3ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "veteran", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "testestest3"], ["veteran", "t"], ["team_id", 1], ["created_at", "2020-01-04 21:38:14.536563"], ["updated_at", "2020-01-04 21:38:14.536563"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/api/v1/skaters" for ::1 at 2020-01-04 16:38:17 -0500
+Processing by Api::V1::SkatersController#index as HTML
+  [1m[36mSkater Load (0.4ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+  [1m[36mSkill Load (0.4ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 3], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 3]]
+  [1m[36mSkill Load (0.4ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 5], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 5]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 6], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 6]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 7], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 7]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 11], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 11]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 12], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 12]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 13], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 13]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 14], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 14]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 15], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 15]]
+Completed 200 OK in 120ms (Views: 0.1ms | ActiveRecord: 21.5ms)
+
+
+Started POST "/api/v1/skaters" for ::1 at 2020-01-04 16:39:04 -0500
+Processing by Api::V1::SkatersController#create as */*
+  Parameters: {"skater"=>{"name"=>"hot new skater number two", "team_id"=>1, "veteran"=>true}}
+Unpermitted parameter: :veteran
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.6ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (1.6ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "hot new skater number two"], ["team_id", 1], ["created_at", "2020-01-04 21:39:04.040117"], ["updated_at", "2020-01-04 21:39:04.040117"]]
+  [1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSkater Load (2.1ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 16], ["LIMIT", 1]]
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "skills" ("skater_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["skater_id", 16], ["created_at", "2020-01-04 21:39:04.052214"], ["updated_at", "2020-01-04 21:39:04.052214"]]
+  [1m[35m (1.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 16], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.4ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 16]]
+Completed 200 OK in 50ms (Views: 0.2ms | ActiveRecord: 15.2ms)
+
+
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "veteran", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "testestest4"], ["veteran", "t"], ["team_id", 1], ["created_at", "2020-01-04 21:39:18.460980"], ["updated_at", "2020-01-04 21:39:18.460980"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/api/v1/skaters" for ::1 at 2020-01-04 16:39:19 -0500
+Processing by Api::V1::SkatersController#index as HTML
+  [1m[36mSkater Load (0.7ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 3], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 3]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 5], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 5]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 6], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.6ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 6]]
+  [1m[36mSkill Load (0.5ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 7], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 7]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 11], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.4ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 11]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 12], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 12]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 13], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 13]]
+  [1m[36mSkill Load (2.0ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 14], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.5ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 14]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 15], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 15]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 16], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 16]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 17], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 17]]
+Completed 200 OK in 68ms (Views: 0.1ms | ActiveRecord: 9.9ms)
+
+
+Started POST "/api/v1/skaters" for ::1 at 2020-01-04 16:39:56 -0500
+Processing by Api::V1::SkatersController#create as */*
+  Parameters: {"skater"=>{"name"=>"hot new skater number three", "team_id"=>1, "veteran"=>true}}
+Unpermitted parameter: :veteran
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "hot new skater number three"], ["team_id", 1], ["created_at", "2020-01-04 21:39:56.587624"], ["updated_at", "2020-01-04 21:39:56.587624"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSkater Load (0.3ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 18], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "skills" ("skater_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["skater_id", 18], ["created_at", "2020-01-04 21:39:56.637504"], ["updated_at", "2020-01-04 21:39:56.637504"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 18], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 18]]
+Completed 200 OK in 143ms (Views: 0.1ms | ActiveRecord: 24.1ms)
+
+
+Started POST "/api/v1/skaters" for ::1 at 2020-01-04 16:40:47 -0500
+Processing by Api::V1::SkatersController#create as */*
+  Parameters: {"skater"=>{"name"=>"hot new skater number four", "team_id"=>1, "veteran"=>true}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "veteran", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "hot new skater number four"], ["veteran", "t"], ["team_id", 1], ["created_at", "2020-01-04 21:40:47.698186"], ["updated_at", "2020-01-04 21:40:47.698186"]]
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSkater Load (0.3ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 19], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "skills" ("skater_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["skater_id", 19], ["created_at", "2020-01-04 21:40:47.724797"], ["updated_at", "2020-01-04 21:40:47.724797"]]
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 19], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 19]]
+Completed 200 OK in 91ms (Views: 0.1ms | ActiveRecord: 21.8ms)
+
+
+Started GET "/api/v1/skaters" for ::1 at 2020-01-04 16:41:03 -0500
+Processing by Api::V1::SkatersController#index as HTML
+  [1m[36mSkater Load (0.3ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 3], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 3]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 5], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 5]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 6], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 6]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 7], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 7]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 11], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 11]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 12], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.4ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 12]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 13], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 13]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 14], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 14]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 15], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 15]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 16], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 16]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 17], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 17]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 18], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 18]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 19], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 19]]
+Completed 200 OK in 46ms (Views: 0.1ms | ActiveRecord: 7.0ms)
+
+
+Started POST "/api/v1/skaters" for ::1 at 2020-01-04 16:41:19 -0500
+Processing by Api::V1::SkatersController#create as */*
+  Parameters: {"skater"=>{"name"=>"hot new skater number five", "team_id"=>1}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (1.1ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "hot new skater number five"], ["team_id", 1], ["created_at", "2020-01-04 21:41:19.224770"], ["updated_at", "2020-01-04 21:41:19.224770"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSkater Load (1.2ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 20], ["LIMIT", 1]]
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "skills" ("skater_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["skater_id", 20], ["created_at", "2020-01-04 21:41:19.233232"], ["updated_at", "2020-01-04 21:41:19.233232"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mSkill Load (0.4ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 20], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.4ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 20]]
+Completed 200 OK in 25ms (Views: 0.2ms | ActiveRecord: 6.2ms)
+
+
+Started GET "/api/v1/skaters" for ::1 at 2020-01-04 16:41:29 -0500
+Processing by Api::V1::SkatersController#index as HTML
+  [1m[36mSkater Load (0.3ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (0.6ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 3], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.4ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 3]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 5], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 5]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 6], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 6]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 7], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 7]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 11], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 11]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 12], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 12]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 13], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 13]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 14], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.4ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 14]]
+  [1m[36mSkill Load (1.1ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 15], ["LIMIT", 1]]
+  [1m[36mPractice Load (1.5ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 15]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 16], ["LIMIT", 1]]
+  [1m[36mPractice Load (1.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 16]]
+  [1m[36mSkill Load (0.5ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 17], ["LIMIT", 1]]
+  [1m[36mPractice Load (2.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 17]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 18], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 18]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 19], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 19]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 20], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 20]]
+Completed 200 OK in 66ms (Views: 0.1ms | ActiveRecord: 14.3ms)
+
+
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSkater Load (0.5ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 17], ["LIMIT", 1]]
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "skills" ("skater_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["skater_id", 17], ["created_at", "2020-01-04 21:50:32.072238"], ["updated_at", "2020-01-04 21:50:32.072238"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/skaters" for ::1 at 2020-01-04 16:51:53 -0500
+Processing by Api::V1::SkatersController#create as */*
+  Parameters: {"skater"=>{"name"=>"hot new skater number six", "team_id"=>1, "veteran"=>true}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (1.2ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (3.1ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "veteran", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "hot new skater number six"], ["veteran", "t"], ["team_id", 1], ["created_at", "2020-01-04 21:51:53.863179"], ["updated_at", "2020-01-04 21:51:53.863179"]]
+  [1m[35m (6.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSkater Load (0.5ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 21], ["LIMIT", 1]]
+  [1m[35mSQL (1.6ms)[0m  [1m[32mINSERT INTO "skills" ("skater_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["skater_id", 21], ["created_at", "2020-01-04 21:51:53.933923"], ["updated_at", "2020-01-04 21:51:53.933923"]]
+  [1m[35m (2.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mSkill Load (0.9ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 21], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 21]]
+Completed 200 OK in 154ms (Views: 0.2ms | ActiveRecord: 39.1ms)
+
+
+Started POST "/api/v1/skaters" for ::1 at 2020-01-04 16:55:55 -0500
+Processing by Api::V1::SkatersController#create as */*
+  Parameters: {"skater"=>{"name"=>"hot new skater number seven", "team_id"=>1, "veteran"=>true}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "veteran", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "hot new skater number seven"], ["veteran", "t"], ["team_id", 1], ["created_at", "2020-01-04 21:55:55.769125"], ["updated_at", "2020-01-04 21:55:55.769125"]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+Completed 500 Internal Server Error in 100ms (ActiveRecord: 9.6ms)
+
+
+  
+ArgumentError (wrong number of arguments (given 2, expected 0..1)):
+  
+app/controllers/api/v1/skaters_controller.rb:23:in `create'
+Started GET "/api/v1/skaters" for ::1 at 2020-01-04 16:58:34 -0500
+Processing by Api::V1::SkatersController#index as HTML
+  [1m[36mSkater Load (0.3ms)[0m  [1m[34mSELECT "skaters".* FROM "skaters"[0m
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 1]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 2], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 2]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 3], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 3]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 5], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 5]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 6], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 6]]
+  [1m[36mSkill Load (0.4ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 7], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 7]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 11], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 11]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 12], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 12]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 13], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 13]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 14], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 14]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 15], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 15]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 16], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 16]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 17], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 17]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 18], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 18]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 19], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 19]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 20], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 20]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 21], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 21]]
+  [1m[36mSkill Load (0.2ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 22], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.2ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 22]]
+Completed 200 OK in 125ms (Views: 0.1ms | ActiveRecord: 21.3ms)
+
+
+Started POST "/api/v1/skaters" for ::1 at 2020-01-04 16:59:02 -0500
+Processing by Api::V1::SkatersController#create as */*
+  Parameters: {"skater"=>{"name"=>" new skater number one", "team_id"=>1, "veteran"=>true}}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTeam Load (0.2ms)[0m  [1m[34mSELECT  "teams".* FROM "teams" WHERE "teams"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (2.8ms)[0m  [1m[32mINSERT INTO "skaters" ("name", "veteran", "team_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", " new skater number one"], ["veteran", "t"], ["team_id", 1], ["created_at", "2020-01-04 21:59:02.113651"], ["updated_at", "2020-01-04 21:59:02.113651"]]
+  [1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSkater Load (0.6ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 23], ["LIMIT", 1]]
+  [1m[35mSQL (1.4ms)[0m  [1m[32mINSERT INTO "skills" ("lateral_movement", "hockey_stop", "plow_stop", "turning_toe", "power_slide", "transitions", "backwards_skating", "speed_endurance", "recovery", "pack_work", "strategy_adaptability", "awareness_communication", "mental_recovery", "skater_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING "id"[0m  [["lateral_movement", 3], ["hockey_stop", 3], ["plow_stop", 3], ["turning_toe", 3], ["power_slide", 3], ["transitions", 3], ["backwards_skating", 3], ["speed_endurance", 3], ["recovery", 3], ["pack_work", 3], ["strategy_adaptability", 3], ["awareness_communication", 3], ["mental_recovery", 3], ["skater_id", 23], ["created_at", "2020-01-04 21:59:02.165682"], ["updated_at", "2020-01-04 21:59:02.165682"]]
+  [1m[35m (1.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 23], ["LIMIT", 1]]
+  [1m[36mPractice Load (0.3ms)[0m  [1m[34mSELECT "practices".* FROM "practices" INNER JOIN "attendances" ON "practices"."id" = "attendances"."practice_id" WHERE "attendances"."skater_id" = $1[0m  [["skater_id", 23]]
+Completed 200 OK in 141ms (Views: 0.3ms | ActiveRecord: 31.3ms)
+
+

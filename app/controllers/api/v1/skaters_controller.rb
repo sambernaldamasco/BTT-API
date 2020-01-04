@@ -18,7 +18,13 @@ module Api::V1
     def create
       @skater = Skater.new(skater_params)
       if @skater.save
-        Skill.create(skater_id: @skater.id)
+
+        if @skater.veteran
+          Skill.create(veteran_params)
+        else
+          Skill.create(skater_id: @skater.id)
+        end
+
         render json: @skater.to_json(include: [:skill, :practices])
       else
         render json: @skater.errors, status: :unprocessable_entity
@@ -62,7 +68,11 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def skater_params
-        params.require(:skater).permit(:name, :team_id)
+        params.require(:skater).permit(:name, :team_id, :veteran)
+      end
+
+      def veteran_params
+        {lateral_movement: 3, hockey_stop: 3, plow_stop: 3, turning_toe: 3, power_slide: 3, transitions: 3, backwards_skating: 3, speed_endurance: 3, recovery: 3, pack_work: 3, strategy_adaptability: 3, awareness_communication: 3, mental_recovery: 3, skater_id: @skater.id}
       end
   end
 

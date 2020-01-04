@@ -19,7 +19,7 @@ module Api::V1
       @skill = Skill.new(skill_params)
 
       if @skill.save
-        render json: @skill, status: :created, location: @skill
+        render json: @skill, status: :created
       else
         render json: @skill.errors, status: :unprocessable_entity
       end
@@ -39,6 +39,7 @@ module Api::V1
       @skill.destroy
     end
 
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_skill
@@ -47,6 +48,7 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def skill_params
+
         params.require(:skill).permit(:lateral_movement, :hockey_stop, :plow_stop, :turning_toe, :power_slide, :transitions, :backwards_skating, :speed_endurance, :recovery, :pack_work, :strategy_adaptability, :awareness_communication, :mental_recovery, :skater_id)
       end
   end
