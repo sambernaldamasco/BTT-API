@@ -12,7 +12,10 @@ Rails.application.routes.draw do
 
       # route to display just skaters that have not been accepted yet(ready for assessment)
       get 'assessment/:team_id', to: 'skaters#assessment_list'
+
       # route to display just the skaters that have been accepted(team roster)
+      get 'roster/:team_id', to: 'skaters#roster_list'
+
     end
   end
 
