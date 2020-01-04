@@ -39,6 +39,13 @@ module Api::V1
       @skater.destroy
     end
 
+    # GET /assessment
+    def assessment_list
+      @skaters = Team.find(params[:team_id]).skaters.find_by(accepted: false)
+
+      render json: @skaters.to_json(include: [:skill, :practices])
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_skater
