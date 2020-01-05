@@ -47,7 +47,7 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def practice_params
-        params.require(:practice).permit(:date, :location, :has_happened, :league_id)
+        params.require(:practice).permit(:date, :location, :has_happened, :team_id)
       end
   end
 
