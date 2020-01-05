@@ -19,7 +19,7 @@ module Api::V1
       @attendance = Attendance.new(attendance_params)
 
       if @attendance.save
-        render json: @attendance, status: :created, location: @attendance
+        render json: @attendance, status: :created
       else
         render json: @attendance.errors, status: :unprocessable_entity
       end

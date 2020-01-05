@@ -16,6 +16,9 @@ Rails.application.routes.draw do
       # route to display just the skaters that have been accepted(team roster)
       get 'roster/:team_id', to: 'skaters#roster_list'
 
+      # route to display just the practices from an specific team
+      get 'practicelist/:team_id', to: 'practices#list'
+
     end
   end
 

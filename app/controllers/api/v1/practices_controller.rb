@@ -19,7 +19,7 @@ module Api::V1
       @practice = Practice.new(practice_params)
 
       if @practice.save
-        render json: @practice, status: :created, location: @practice
+        render json: @practice, status: :created
       else
         render json: @practice.errors, status: :unprocessable_entity
       end
@@ -37,6 +37,13 @@ module Api::V1
     # DELETE /practices/1
     def destroy
       @practice.destroy
+    end
+
+    # GET /practicelist/:team_id
+    def list
+      @pratices = Practice.where(team_id: params[:team_id])
+
+      render json: @pratices.to_json(include: [:skaters])
     end
 
     private
