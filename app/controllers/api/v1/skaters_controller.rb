@@ -42,7 +42,11 @@ module Api::V1
 
     # DELETE /skaters/1
     def destroy
-      @skater.destroy
+      @deletedSkater = Skater.find(params[:id])
+      @skaterSkill = Skill.find_by(skater_id: params[:id])
+
+      @skaterSkill.destroy
+      @deletedSkater.destroy
     end
 
     # GET /assessment

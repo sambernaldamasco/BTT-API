@@ -2155,3 +2155,89 @@ Processing by Api::V1::SkatersController#show as HTML
 Completed 200 OK in 111ms (Views: 0.1ms | ActiveRecord: 18.9ms)
 
 
+Started DELETE "/api/v1/skaters/1" for ::1 at 2020-01-05 14:01:06 -0500
+Processing by Api::V1::SkatersController#destroy as */*
+  Parameters: {"skater"=>{"name"=>" new skater number two", "team_id"=>1}, "id"=>"1"}
+  [1m[36mSkater Load (0.7ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.7ms)[0m  [1m[34mSELECT "skills".* FROM "skills" WHERE "skills"."skater_id" = 1[0m
+  [1m[36mAttendance Load (0.5ms)[0m  [1m[34mSELECT "attendances".* FROM "attendances" WHERE "attendances"."skater_id" = 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (10.6ms)[0m  [1m[31mDELETE FROM "skaters" WHERE "skaters"."id" = $1[0m  [["id", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+Completed 500 Internal Server Error in 73ms (ActiveRecord: 23.5ms)
+
+
+  
+ActiveRecord::InvalidForeignKey (PG::ForeignKeyViolation: ERROR:  update or delete on table "skaters" violates foreign key constraint "fk_rails_6dc71daffa" on table "skills"
+DETAIL:  Key (id)=(1) is still referenced from table "skills".
+: DELETE FROM "skaters" WHERE "skaters"."id" = $1):
+  
+app/controllers/api/v1/skaters_controller.rb:45:in `destroy'
+Started DELETE "/api/v1/skaters/1" for ::1 at 2020-01-05 14:02:33 -0500
+Processing by Api::V1::SkatersController#destroy as */*
+  Parameters: {"id"=>"1", "skater"=>{}}
+  [1m[36mSkater Load (0.6ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT "skills".* FROM "skills" WHERE "skills"."skater_id" = 1[0m
+  [1m[36mAttendance Load (0.3ms)[0m  [1m[34mSELECT "attendances".* FROM "attendances" WHERE "attendances"."skater_id" = 1[0m
+  [1m[36mCACHE Skater Load (0.0ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (4.1ms)[0m  [1m[31mDELETE FROM "skaters" WHERE "skaters"."id" = $1[0m  [["id", 1]]
+  [1m[35m (2.4ms)[0m  [1m[31mROLLBACK[0m
+Completed 500 Internal Server Error in 63ms (ActiveRecord: 7.9ms)
+
+
+  
+ActiveRecord::InvalidForeignKey (PG::ForeignKeyViolation: ERROR:  update or delete on table "skaters" violates foreign key constraint "fk_rails_6dc71daffa" on table "skills"
+DETAIL:  Key (id)=(1) is still referenced from table "skills".
+: DELETE FROM "skaters" WHERE "skaters"."id" = $1):
+  
+app/controllers/api/v1/skaters_controller.rb:46:in `destroy'
+Started DELETE "/api/v1/skaters/1" for ::1 at 2020-01-05 14:08:38 -0500
+Processing by Api::V1::SkatersController#destroy as */*
+  Parameters: {"id"=>"1", "skater"=>{}}
+  [1m[36mSkater Load (0.5ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.5ms)[0m  [1m[34mSELECT "skills".* FROM "skills" WHERE "skills"."skater_id" = 1[0m
+  [1m[36mAttendance Load (0.3ms)[0m  [1m[34mSELECT "attendances".* FROM "attendances" WHERE "attendances"."skater_id" = 1[0m
+  [1m[36mCACHE Skater Load (0.0ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 65ms (ActiveRecord: 1.3ms)
+
+
+  
+ArgumentError (wrong number of arguments (given 0, expected 1)):
+  
+app/controllers/api/v1/skaters_controller.rb:49:in `destroy'
+Started DELETE "/api/v1/skaters/1" for ::1 at 2020-01-05 14:10:45 -0500
+Processing by Api::V1::SkatersController#destroy as */*
+  Parameters: {"id"=>"1", "skater"=>{}}
+  [1m[36mSkater Load (0.8ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.4ms)[0m  [1m[34mSELECT "skills".* FROM "skills" WHERE "skills"."skater_id" = 1[0m
+  [1m[36mAttendance Load (0.3ms)[0m  [1m[34mSELECT "attendances".* FROM "attendances" WHERE "attendances"."skater_id" = 1[0m
+  [1m[36mCACHE Skater Load (0.0ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.5ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.3ms)[0m  [1m[31mDELETE FROM "skills" WHERE "skills"."id" = $1[0m  [["id", 1]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+Completed 500 Internal Server Error in 50ms (ActiveRecord: 4.8ms)
+
+
+  
+ArgumentError (wrong number of arguments (given 0, expected 1)):
+  
+app/controllers/api/v1/skaters_controller.rb:50:in `destroy'
+Started DELETE "/api/v1/skaters/1" for ::1 at 2020-01-05 14:11:46 -0500
+Processing by Api::V1::SkatersController#destroy as */*
+  Parameters: {"id"=>"1", "skater"=>{}}
+  [1m[36mSkater Load (0.5ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.7ms)[0m  [1m[34mSELECT "skills".* FROM "skills" WHERE "skills"."skater_id" = 1[0m
+  [1m[36mAttendance Load (0.3ms)[0m  [1m[34mSELECT "attendances".* FROM "attendances" WHERE "attendances"."skater_id" = 1[0m
+  [1m[36mCACHE Skater Load (0.0ms)[0m  [1m[34mSELECT  "skaters".* FROM "skaters" WHERE "skaters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSkill Load (0.3ms)[0m  [1m[34mSELECT  "skills".* FROM "skills" WHERE "skills"."skater_id" = $1 LIMIT $2[0m  [["skater_id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "skills" WHERE "skills"."id" = $1[0m  [["id", 2]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[31mDELETE FROM "skaters" WHERE "skaters"."id" = $1[0m  [["id", 1]]
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 75ms (ActiveRecord: 5.8ms)
+
+
