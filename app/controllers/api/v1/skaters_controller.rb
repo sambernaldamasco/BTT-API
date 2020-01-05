@@ -47,7 +47,7 @@ module Api::V1
 
     # GET /assessment
     def assessment_list
-      @skaters = Team.find(params[:team_id]).skaters.find_by(accepted: false)
+      @skaters = Team.find(params[:team_id]).skaters.where(accepted: false)
 
       render json: @skaters.to_json(include: [:skill, :practices])
     end
@@ -55,7 +55,7 @@ module Api::V1
 
     # GET /roster
     def roster_list
-      @skaters = Team.find(params[:team_id]).skaters.find_by(accepted: true)
+      @skaters = Team.find(params[:team_id]).skaters.where(accepted: true)
 
       render json: @skaters.to_json(include: [:skill, :practices])
     end
