@@ -68,7 +68,7 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def skater_params
-        params.require(:skater).permit(:name, :team_id, :veteran)
+        params.require(:skater).permit(:name, :team_id, :veteran, :accepted)
       end
 
       def veteran_params
